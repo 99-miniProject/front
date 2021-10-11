@@ -1,13 +1,14 @@
+// ! kyuung
 import React from 'react';
 import styled from 'styled-components';
 
 const Image = (props) => {
-	const { width, height, bradius, otherStyles, src } = props;
+	const { width, height, bradius, otherStyles, src, children } = props;
 	const styles = { width, height, bradius, otherStyles, src };
 
 	return (
 		<>
-			<ElImage {...styles} />
+			<ElImage {...styles}>{children}</ElImage>
 		</>
 	);
 };
@@ -18,6 +19,7 @@ Image.defaultProps = {
 	bradius: '0px',
 	src: 'https://my-speak-app.s3.ap-northeast-2.amazonaws.com/cat1.jpeg',
 	otherStyles: '',
+	children: '',
 };
 
 const ElImage = styled.div`
