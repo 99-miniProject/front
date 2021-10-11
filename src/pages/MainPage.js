@@ -1,10 +1,11 @@
-// ! kyuung
+// ! kyuung 메인페이지 입니다
 // * import Basic
 import React from 'react';
 
 // * import Components
 import { Header, Footer, MainFilter } from '../components/index';
 import { Input, Button, Text, Grid, Image } from '../elements/index';
+import { MainCard } from '../components/index';
 
 const MainPage = () => {
 	return (
@@ -20,6 +21,12 @@ const MainPage = () => {
 				</Text>
 			</Image>
 			<MainFilter />
+			<div style={{ display: 'flex' }}>
+				<MainCard />
+				<MainCard />
+				<MainCard />
+			</div>
+			<Footer />
 		</>
 	);
 };

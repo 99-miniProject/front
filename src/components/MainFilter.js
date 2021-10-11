@@ -1,4 +1,4 @@
-// ! kyuung
+// ! kyuung 메인페이지 필터 부분입니다
 import React from 'react';
 import styled from 'styled-components';
 

@@ -19,7 +19,7 @@ const Text = (props) => {
 
 Text.defaultProps = {
 	fontSize: '14px',
-	bold: 700,
+	bold: 400,
 	center: '',
 	color: 'black',
 	children: 'child',
