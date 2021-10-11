@@ -9,16 +9,19 @@ const Button = (props) => {
 		fontColor,
 		bgColor,
 		fontSize,
-		_onClick,
+		bradius,
 		otherStyles,
+		_onClick,
 		children,
 	} = props;
+
 	const styles = {
 		width,
 		height,
 		fontColor,
 		bgColor,
 		fontSize,
+		bradius,
 		otherStyles,
 	};
 
@@ -37,6 +40,8 @@ Button.defaultProps = {
 	fontColor: 'white',
 	bgColor: 'black',
 	fontSize: '14px',
+	bradius: '0px',
+	otherStyles: '',
 	_onClick: () => {},
 };
 
@@ -46,6 +51,7 @@ const ElButton = styled.button`
 	color: ${(props) => props.fontColor};
 	background-color: ${(props) => props.bgColor};
 	font-size: ${(props) => props.fontSize};
+	border-radius: ${(props) => props.bradius};
 	${(props) => props.otherStyles};
 	border: none;
 `;
