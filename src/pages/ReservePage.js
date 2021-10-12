@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import { flexbox, style, width } from '@mui/system';
 import styled from 'styled-components';
 import { SocialDistance } from '@mui/icons-material';
+import { Grid, Button, Input, Text, Image } from '../elements/index'
 
 const ReservePage = () => {
 	return (
@@ -14,23 +15,18 @@ const ReservePage = () => {
 					initialView="dayGridMonth"
 				/>
 				<Check>
-					<div
-						style={{
-							border: '1px solid',
-							width: '100px',
-							padding: 'auto',
-						}}
-					>
-						인원
-					</div>
-					<Person>
-						<div style={{ border: '1px solid', width: '100px' }}>
-							성인 2명{' '}
+						<div>
+					  		<Text fontSize='35px' bold='700'>인원 :</Text>
 						</div>
-						<div style={{ border: '1px solid', width: '100px' }}>
-							아동 2명{' '}
-						</div>
-					</Person>
+						<Person>
+							<div>
+								성인 2명{' '}
+							</div>
+
+							<div>
+								아동 2명{' '}
+							</div>
+						</Person>
 				</Check>
 				<ReservBtn>예약하기</ReservBtn>
 			</Calendar>
@@ -47,10 +43,13 @@ const Calendar = styled.div`
 `;
 const Check = styled.div`
 	display: flex;
-	width: 100%;
-	margin: 30px 0px;
+	width: 30%;
 	text-align: center;
-	margin: ‘0px 50px’;
+	margin: 10px 50px 50px 5px;
+	border: 1px solid;
+	border-radius:  5px;
+	padding:  5px;
+
 `;
 const Person = styled.div`
 	display: flex;
