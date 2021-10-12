@@ -1,5 +1,5 @@
 // * import Basic
-import React from "react";
+import React from 'react';
 
 // * import Components
 import { Header, Footer, MainFilter, MainCard } from '../components/index';
@@ -64,11 +64,9 @@ const MainPage = (props) => {
 						/>
 					))}
 				</Grid>
-				<Footer />
 			</Grid>
 		</>
 	);
-
 };
 
 export default MainPage;
