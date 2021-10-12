@@ -97,7 +97,6 @@ const ElButton = styled.button`
 	${(props) => props.others};
 	cursor: pointer;
 	border: none;
-	background: none;
 `;
 
 export default Button;
