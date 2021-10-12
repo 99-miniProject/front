@@ -7,6 +7,7 @@ import { ExitToAppSharp } from '@material-ui/icons';
 
 const Button = (props) => {
 	const {
+		text,
 		width,
 		height,
 		fontColor,
@@ -18,9 +19,11 @@ const Button = (props) => {
 		children,
 		myPage,
 		logout,
+		hover,
 	} = props;
 
 	const styles = {
+		text,
 		width,
 		height,
 		fontColor,
@@ -30,12 +33,14 @@ const Button = (props) => {
 		others,
 		myPage,
 		logout,
+		hover,
 	};
 
 	if (myPage) {
 		return (
 			<React.Fragment>
 				<ElButton onClick={_onClick}>
+					{text ? text : children}
 					<AccountCircle
 						style={{
 							marginRight: '10px',
@@ -54,6 +59,7 @@ const Button = (props) => {
 		return (
 			<React.Fragment>
 				<ElButton onClick={_onClick}>
+					{text ? text : children}
 					<ExitToAppSharp
 						style={{
 							color: '#b9b9b9',
@@ -68,15 +74,17 @@ const Button = (props) => {
 	}
 
 	return (
-		<>
+		<React.Fragment>
 			<ElButton {...styles} onClick={_onClick}>
-				{children}
+				{text ? text : children}
 			</ElButton>
-		</>
+		</React.Fragment>
 	);
 };
 
 Button.defaultProps = {
+	text: false,
+	children: null,
 	width: false,
 	height: false,
 	fontColor: 'white',
@@ -97,6 +105,7 @@ const ElButton = styled.button`
 	${(props) => props.others};
 	cursor: pointer;
 	border: none;
+	background: none;
 `;
 
 export default Button;
