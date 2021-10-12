@@ -61,7 +61,6 @@ const MainPage = (props) => {
 							camp_name={data.name}
 							camp_price={data.price}
 							camp_src={data.src}
-							a="abc"
 						/>
 					))}
 				</Grid>
