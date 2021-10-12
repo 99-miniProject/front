@@ -3,12 +3,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Text = (props) => {
-	const { fontSize, bold, center, color, children } = props;
+	const { fontSize, bold, center, color, others, children } = props;
 	const styles = {
 		fontSize,
 		bold,
 		center,
 		color,
+		others,
 	};
 	return (
 		<>
@@ -23,6 +24,7 @@ Text.defaultProps = {
 	center: '',
 	color: 'black',
 	children: 'child',
+	others: '',
 };
 
 const ElText = styled.div`
@@ -30,6 +32,7 @@ const ElText = styled.div`
 	font-weight: ${(props) => props.bold};
 	color: ${(props) => props.color};
 	${(props) => (props.center ? `text-align: center` : '')};
+	${(props) => props.others};
 `;
 
 export default Text;
