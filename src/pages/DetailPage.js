@@ -4,6 +4,7 @@ import { Input, Button, Text, Grid, Image } from '../elements/index';
 
 const DetailPage = (props) => {
 	const { camping_name, camping_price, camping_num } = props;
+	console.log(props.match.params.id);
 
 	const camping_data = {
 		camping_name,
