@@ -66,7 +66,7 @@ const Header = (props) => {
 				jc={'space-between'}
 				padding={'16px'}
 				others={
-					'border-bottom: 1px solid lightgray; position: sticky; top: 0px; background-color: #fff;'
+					'border-bottom: 1px solid lightgray; position: sticky; top: 0px; background-color: #fff;z-index:2'
 				}
 			>
 				<Grid width={'false'}>
