@@ -8,12 +8,12 @@ const Input = (props) => {
 		height,
 		fontSize,
 		bradius,
-		otherStyles,
+		others,
 		_onChange,
 		placeholder,
 		text,
 	} = props;
-	const styles = { width, height, bradius, fontSize, otherStyles };
+	const styles = { width, height, bradius, fontSize, others };
 
 	return (
 		<>
@@ -35,13 +35,14 @@ Input.defaultProps = {
 	_onChange: () => {},
 	placeholder: 'placeholder',
 	text: 'label',
+	others: '',
 };
 
 const ElInput = styled.input`
 	width: ${(props) => props.width};
 	height: ${(props) => props.height};
 	font-size: ${(props) => props.fontSize};
-	${(props) => props.otherStyles};
+	${(props) => props.others};
 	padding-left: 0.5rem;
 	margin-top: 1rem;
 	border-radius: ${(props) => props.bradius};

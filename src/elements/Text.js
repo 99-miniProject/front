@@ -25,7 +25,7 @@ Text.defaultProps = {
 	children: 'child',
 };
 
-const ElText = styled.p`
+const ElText = styled.div`
 	font-size: ${(props) => props.fontSize};
 	font-weight: ${(props) => props.bold};
 	color: ${(props) => props.color};

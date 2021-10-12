@@ -3,8 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = (props) => {
-	const { width, height, bradius, otherStyles, src, children } = props;
-	const styles = { width, height, bradius, otherStyles, src };
+	const { width, height, bradius, others, src, children } = props;
+	const styles = { width, height, bradius, others, src };
 
 	return (
 		<>
@@ -18,7 +18,7 @@ Image.defaultProps = {
 	height: '15rem',
 	bradius: '0px',
 	src: 'https://my-speak-app.s3.ap-northeast-2.amazonaws.com/cat1.jpeg',
-	otherStyles: '',
+	others: '',
 	children: '',
 };
 
@@ -30,7 +30,7 @@ const ElImage = styled.div`
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
-	${(props) => props.otherStyles};
+	${(props) => props.others};
 `;
 
 export default Image;

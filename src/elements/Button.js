@@ -2,6 +2,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { AccountCircle } from '@material-ui/icons';
+import { ExitToAppSharp } from '@material-ui/icons';
+
 const Button = (props) => {
 	const {
 		width,
@@ -10,9 +13,11 @@ const Button = (props) => {
 		bgColor,
 		fontSize,
 		bradius,
-		otherStyles,
+		others,
 		_onClick,
 		children,
+		myPage,
+		logout,
 	} = props;
 
 	const styles = {
@@ -22,8 +27,45 @@ const Button = (props) => {
 		bgColor,
 		fontSize,
 		bradius,
-		otherStyles,
+		others,
+		myPage,
+		logout,
 	};
+
+	if (myPage) {
+		return (
+			<React.Fragment>
+				<ElButton onClick={_onClick}>
+					<AccountCircle
+						style={{
+							marginRight: '10px',
+							color: '#88d999',
+							fontSize: '27px',
+							background: '#fff',
+							borderRadius: '50px',
+						}}
+					/>
+				</ElButton>
+			</React.Fragment>
+		);
+	}
+
+	if (logout) {
+		return (
+			<React.Fragment>
+				<ElButton onClick={_onClick}>
+					<ExitToAppSharp
+						style={{
+							color: '#b9b9b9',
+							fontSize: '27px',
+							background: '#fff',
+							borderRadius: '50px',
+						}}
+					/>
+				</ElButton>
+			</React.Fragment>
+		);
+	}
 
 	return (
 		<>
@@ -35,13 +77,13 @@ const Button = (props) => {
 };
 
 Button.defaultProps = {
-	width: '4rem',
-	height: '2rem',
+	width: false,
+	height: false,
 	fontColor: 'white',
 	bgColor: 'black',
 	fontSize: '14px',
 	bradius: '0px',
-	otherStyles: '',
+	others: '',
 	_onClick: () => {},
 };
 
@@ -52,8 +94,10 @@ const ElButton = styled.button`
 	background-color: ${(props) => props.bgColor};
 	font-size: ${(props) => props.fontSize};
 	border-radius: ${(props) => props.bradius};
-	${(props) => props.otherStyles};
+	${(props) => props.others};
+	cursor: pointer;
 	border: none;
+	background: none;
 `;
 
 export default Button;

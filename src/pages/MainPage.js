@@ -10,7 +10,6 @@ import { MainCard } from '../components/index';
 const MainPage = () => {
 	return (
 		<>
-			<Header />
 			<Image
 				width="100vw"
 				height="20rem"
