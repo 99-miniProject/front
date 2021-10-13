@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Button, Text, Grid } from '../elements/index';
 
 const MainFilter = () => {
-	const filterNames = [1, 2, 3, 4, 5, 6];
+	const filterNames = ['애완동물과 함께', '차박', '글램핑', '당일 예약'];
 	return (
 		<>
 			<Grid others="margin-top:1.5rem;margin-bottom:1.5rem;">

@@ -1,22 +1,27 @@
 import React from 'react';
 import Reviews from '../components/Reviews';
+import { useHistory } from 'react-router';
+import { actionCreators as campCreators } from '../redux/modules/camp';
+
 import { Input, Button, Text, Grid, Image } from '../elements/index';
+import { useDispatch, useSelector } from 'react-redux';
 
 const DetailPage = (props) => {
-	const { camping_name, camping_price, camping_num } = props;
-	console.log(props.match.params.id);
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const post_id = props.match.params.id;
+	const camp_list = useSelector((state) => state.camp.list);
+	const refCamp = camp_list.filter((camp) => camp.id === Number(post_id));
 
-	const camping_data = {
-		camping_name,
-		camping_price,
-		camping_num,
-	};
+	React.useEffect(() => {
+		dispatch(campCreators.getReviews(post_id));
+	}, []);
 
 	return (
 		<>
 			<Grid fd="column" width="100vw">
 				<Text fontSize="4rem" bold="700" others="margin:2rem;">
-					{camping_name}
+					{refCamp[0].name}
 				</Text>
 				<Image
 					others="-webkit-box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78); 
@@ -28,7 +33,7 @@ const DetailPage = (props) => {
 					bold="700"
 					others="margin-top:3.8rem;margin-bottom:1.2rem;"
 				>
-					캠핑장 정보
+					{refCamp[0].info}
 				</Text>
 				<Grid width="70vw" jc="space-between">
 					<Grid fd="column" width="25vw">
@@ -45,7 +50,7 @@ const DetailPage = (props) => {
 							>
 								가격
 							</Text>
-							<Text fontSize="1rem">{camping_price}</Text>
+							<Text fontSize="1rem">{refCamp[0].price}</Text>
 						</Grid>
 						<Grid width="25vw" jc="left" others="margin-left:20vw">
 							<Text
@@ -56,21 +61,11 @@ const DetailPage = (props) => {
 							>
 								인원
 							</Text>
-							<Text fontSize="1rem">{camping_num}</Text>
+							<Text fontSize="1rem">{refCamp[0].capacity}명</Text>
 						</Grid>
 					</Grid>
 					<Grid width="35vw">
-						<Text center>
-							ㅁ 글램핑 최초 개별온수수영장,개별찜질방 ㅁ몸만 오면
-							되는 풀세팅 럭셔리글램핑 ㅁ 숲속에서의 독립된
-							휴식공간 ㅁ
-							퀸사이즈침대+냉장고+TV+에어컨+쇼파+LG인덕션+선풍기+식탁+커피포트+공기청정기+싱크대+각종식기류일체+캠핑의자
-							+객실샤워실+개별화장실+개별개수대+실외리빙공간 ㅁ
-							수건,샴푸,비누 ㅁ 입실 14시 /퇴실 11시 ㅁ 20년 5월
-							신규놀이기구 -수중범퍼카 .에어방수 놀이기구 ㅁ
-							무료이용서비스 :
-							수영장/바이킹/꼬마기차/레일썰매/족구장/얼음썰매/눈썰매
-						</Text>
+						<Text center>{refCamp[0].info}</Text>
 					</Grid>
 				</Grid>
 				<Button
@@ -78,13 +73,16 @@ const DetailPage = (props) => {
 					height="3rem"
 					bradius="15px"
 					others="margin-top:2rem;&:hover{opacity:80%}"
+					_onClick={() => {
+						history.push(`/reserve/${refCamp[0].id}`);
+					}}
 				>
-					예약하기
+					예약하러가기
 				</Button>
 			</Grid>
 			<hr style={{ marginTop: '2rem', width: '75vw' }} />
 			<Grid fd="column">
-				<Reviews />
+				<Reviews post_id={post_id} />
 			</Grid>
 		</>
 	);

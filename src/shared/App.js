@@ -2,9 +2,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-// * to use redux-history import
+// * to use redux
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/configStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as campCreators } from '../redux/modules/camp';
 
 // * components import
 import { Header, Footer } from '../components';
@@ -19,6 +21,11 @@ import {
 } from '../pages/index';
 
 function App() {
+	const dispatch = useDispatch();
+	React.useEffect(() => {
+		dispatch(campCreators.getPost());
+	}, []);
+
 	return (
 		<>
 			<Header />
@@ -38,7 +45,7 @@ function App() {
 						></Route>
 						<Route path="/mypage" exact component={MyPage}></Route>
 						<Route
-							path="/reserve"
+							path="/reserve/:id"
 							exact
 							component={ReservePage}
 						></Route>

@@ -1,9 +1,18 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { actionCreators as userCreators } from '../redux/modules/user';
 
 import { Grid, Text, Input, Button } from '../elements';
 
 const LoginPage = (props) => {
-	const { history } = props;
+	const dispatch = useDispatch();
+	const [id, setId] = React.useState('');
+	const [pwd, setPwd] = React.useState('');
+	const login = () => {
+		const user_info = { id, pwd };
+		dispatch(userCreators.postLogin(user_info));
+	};
+
 	return (
 		<React.Fragment>
 			<Grid width={'70vw'} height={'60vh'} margin={'20px 0px'}>
@@ -32,7 +41,7 @@ const LoginPage = (props) => {
 						<Input
 							placeholder="아이디를 입력해주세요."
 							_onChange={(e) => {
-								// setId(e.target.value);
+								setId(e.target.value);
 							}}
 						/>
 					</Grid>
@@ -50,7 +59,7 @@ const LoginPage = (props) => {
 							placeholder="비밀번호를 입력해주세요."
 							type="password"
 							_onChange={(e) => {
-								// setPwd(e.target.value);
+								setPwd(e.target.value);
 							}}
 						/>
 					</Grid>
@@ -68,9 +77,9 @@ const LoginPage = (props) => {
 							}
 						>
 							<Button
-								_onClick={() => {
-									history.push('/signup');
-								}}
+								// _onClick={() => {
+								// 	history.push('/signup');
+								// }}
 								bgColor={'white'}
 							>
 								<Text color={'gray'} fontSize={'13px'}>
@@ -85,12 +94,7 @@ const LoginPage = (props) => {
 								'border: 1px solid lightgray; lightgray; border-radius: 50px; cursor: pointer;'
 							}
 						>
-							<Button
-								_onClick={() => {
-									history.push('/signup');
-								}}
-								bgColor={'white'}
-							>
+							<Button _onClick={login} bgColor={'white'}>
 								<Text color={'gray'} fontSize={'13px'}>
 									로그인하기
 								</Text>

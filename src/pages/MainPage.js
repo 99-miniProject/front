@@ -1,39 +1,14 @@
 // * import Basic
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as campCreators } from '../redux/modules/camp';
 
 // * import Components
 import { Header, Footer, MainFilter, MainCard } from '../components/index';
 import { Input, Button, Text, Grid, Image } from '../elements/index';
-import axios from 'axios';
 
 const MainPage = (props) => {
-	let camp_list = [];
-	React.useEffect(() => {
-		// axios
-		// 	.post('http://jhhong0930.shop/books', {
-		// 		userId: 1,
-		// 		campId: 1,
-		// 		count: 2,
-		// 		checkinDate: date,
-		// 	})
-		// 	.then(function (response) {
-		// 		console.log(response);
-		// 	})
-		// 	.catch(function (error) {
-		// 		console.log(error.response.data);
-		// 	});
-	}, []);
-
-	// React.useEffect(() => {
-	// 	axios
-	// 		.get('http://jhhong0930.shop/books/2')
-	// 		.then(function (response) {
-	// 			console.log(response);
-	// 		})
-	// 		.catch(function (error) {
-	// 			console.log(error);
-	// 		});
-	// }, []);
+	const camp_list = useSelector((state) => state.camp.list);
 
 	return (
 		<>
@@ -58,7 +33,7 @@ const MainPage = (props) => {
 				>
 					{camp_list.map((data, idx) => (
 						<MainCard
-							index={idx}
+							key={idx}
 							camp_id={data.id}
 							camp_name={data.name}
 							camp_price={data.price}

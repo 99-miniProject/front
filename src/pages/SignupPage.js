@@ -5,16 +5,40 @@ import { actionCreators as userCreators } from '../redux/modules/user';
 import { Grid, Text, Input, Button } from '../elements';
 
 const SignupPage = (props) => {
-	const { history } = props;
+	const dispatch = useDispatch();
 
 	// * id, password state
 	const [id, setId] = React.useState('');
 	const [pwd, setPwd] = React.useState('');
 	const [nickName, setNickname] = React.useState('');
 	const [pwdChk, setPwdChk] = React.useState('');
-	console.log(id, pwd, nickName, pwdChk);
 
-	const signup = () => {};
+	const signup = () => {
+		const user_info = { id, nickName, pwd, pwdChk };
+
+		if (id.length < 5) {
+			window.alert('아이디는 5자 이상으로 입력해주세요.');
+			return;
+		} else if (
+			id === '' ||
+			nickName === '' ||
+			pwd === '' ||
+			pwdChk === ''
+		) {
+			window.alert('모든 칸을 입력해주세요.');
+			return;
+		} else if (pwd.length < 8) {
+			window.alert('비밀번호는 8자 이상으로 입력해주세요.');
+			return;
+		} else if (pwd !== pwdChk) {
+			window.alert('비밀번호와 비밀번호 확인이 다릅니다.');
+			return;
+		} else if (nickName < 2) {
+			window.alert('닉네임은 2글자 이상으로 입력해주세요.');
+			return;
+		}
+		dispatch(userCreators.postSignup(user_info));
+	};
 
 	return (
 		<React.Fragment>
@@ -109,12 +133,7 @@ const SignupPage = (props) => {
 							'margin-top:16px; border: 1px solid lightgray; border-radius: 50px; cursor: pointer;'
 						}
 					>
-						<Button
-							_onClick={() => {
-								signup();
-							}}
-							bgColor={'white'}
-						>
+						<Button _onClick={signup} bgColor={'white'}>
 							<Text color={'gray'} fontSize={'13px'}>
 								회원가입하기
 							</Text>

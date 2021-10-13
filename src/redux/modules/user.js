@@ -14,16 +14,34 @@ const signup = createAction(SIGNUP, (user_info) => ({ user_info }));
 const login = createAction(LOGIN, (user) => ({ user }));
 
 // ! middlewares
-const postSignup = (username, nickname, password, passwordChk) => {
+const postSignup = (user_info) => {
 	return function (dispatch, getState, { history }) {
 		instance
 			.post('/signup', {
-				username,
-				nickname,
-				password,
-				passwordChk,
+				username: user_info.id,
+				nickname: user_info.nickName,
+				password: user_info.pwd,
+				passwordChk: user_info.pwdChk,
 			})
 			.then((res) => {
+				console.log(res);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+};
+
+const postLogin = (user_info) => {
+	return function (dispatch, getState, { history }) {
+		console.log(user_info);
+		instance
+			.post('/login', {
+				username: user_info.id,
+				password: user_info.pwd,
+			})
+			.then((res) => {
+				// 토큰 어딧징? 받으면 쿠키에 넣쟈
 				console.log(res);
 			})
 			.catch((err) => {
@@ -42,8 +60,8 @@ export default handleActions(
 );
 
 const actionCreators = {
-	login,
 	postSignup,
+	postLogin,
 };
 
 export { actionCreators };

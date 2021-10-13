@@ -1,8 +1,21 @@
 import React from 'react';
 import { Input, Button, Text, Grid, Image } from '../elements/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as campCreators } from '../redux/modules/camp';
 
 const Reviews = (props) => {
-	const { review_user_name, review_user_content } = props;
+	const dispatch = useDispatch();
+	const { review_user_name, review_user_content, post_id } = props;
+	const [_content, setContent] = React.useState('');
+
+	const postReview = () => {
+		const review_info = { camp_id: post_id, content: _content };
+		dispatch(campCreators.postReview(review_info));
+	};
+
+	const reviews = useSelector((state) => state.camp.reviews);
+	console.log('>>>>', reviews);
+
 	return (
 		<>
 			<Grid fd="column" others="margin-bottom:1rem;">
@@ -20,6 +33,9 @@ const Reviews = (props) => {
 							width="40vw"
 							height="2.5rem"
 							placeholder="리뷰를 여기 작성해주세요"
+							_onChange={(e) => {
+								setContent(e.target.value);
+							}}
 						/>
 					</Grid>
 					<Button
@@ -27,6 +43,7 @@ const Reviews = (props) => {
 						height="2.5rem"
 						others="margin-left:0.5rem;&:hover{opacity:80%};margin-bottom:1.5rem;"
 						bradius="10px"
+						_onClick={postReview}
 					>
 						등록
 					</Button>
