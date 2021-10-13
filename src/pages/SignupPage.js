@@ -4,6 +4,16 @@ import { Grid, Text, Input, Button } from '../elements';
 
 const SignupPage = (props) => {
 	const { history } = props;
+
+	// * id, password state
+	const [id, setId] = React.useState('');
+	const [pwd, setPwd] = React.useState('');
+	const [nickName, setNickname] = React.useState('');
+	const [pwdChk, setPwdChk] = React.useState('');
+	console.log(id, pwd, nickName, pwdChk);
+
+	const signup = () => {};
+
 	return (
 		<React.Fragment>
 			<Grid width={'70vw'} height={'60vh'} margin={'20px 0px'}>
@@ -32,7 +42,7 @@ const SignupPage = (props) => {
 						<Input
 							placeholder="아이디를 입력해주세요."
 							_onChange={(e) => {
-								// setId(e.target.value);
+								setId(e.target.value);
 							}}
 						/>
 					</Grid>
@@ -49,7 +59,7 @@ const SignupPage = (props) => {
 						<Input
 							placeholder="닉네임을 입력해주세요."
 							_onChange={(e) => {
-								// setId(e.target.value);
+								setNickname(e.target.value);
 							}}
 						/>
 					</Grid>
@@ -67,7 +77,7 @@ const SignupPage = (props) => {
 							placeholder="비밀번호를 입력해주세요."
 							type="password"
 							_onChange={(e) => {
-								// setPwd(e.target.value);
+								setPwd(e.target.value);
 							}}
 						/>
 					</Grid>
@@ -85,7 +95,7 @@ const SignupPage = (props) => {
 							placeholder="비밀번호를 다시 한 번 입력해주세요."
 							type="password"
 							_onChange={(e) => {
-								// setPwd(e.target.value);
+								setPwdChk(e.target.value);
 							}}
 						/>
 					</Grid>
@@ -99,7 +109,7 @@ const SignupPage = (props) => {
 					>
 						<Button
 							_onClick={() => {
-								history.push('/signup');
+								signup();
 							}}
 							bgColor={'white'}
 						>
