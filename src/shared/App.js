@@ -1,6 +1,12 @@
+// * react basic import
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom';
+
+// * to use redux-history import
+import { ConnectedRouter } from 'connected-react-router';
+import { history } from '../redux/configStore';
+
+// * components import
 import { Header, Footer } from '../components';
 import { Grid } from '../elements';
 import {
@@ -18,7 +24,7 @@ function App() {
 			<Header />
 			<Grid others={'max-width:100vw;margin-top: 5vh;'}>
 				<Grid container>
-					<BrowserRouter>
+					<ConnectedRouter history={history}>
 						<Route path="/" exact component={MainPage}></Route>
 						<Route
 							path="/login"
@@ -37,7 +43,7 @@ function App() {
 							component={ReservePage}
 						></Route>
 						<Route path="/post/:id" exact component={DetailPage} />
-					</BrowserRouter>
+					</ConnectedRouter>
 					{/* <Footer /> */}
 				</Grid>
 			</Grid>
