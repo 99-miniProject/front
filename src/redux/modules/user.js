@@ -1,26 +1,26 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
 
 const initialState = {
-	list: [{ id: 'kyuung', pwd: 'a12345' }],
+    list: [{ id: "kyuung", pwd: "a12345" }],
 };
 
 // ! action types
-const LOGIN = 'LOGIN';
+const LOGIN = "LOGIN";
 
 // ! action creators
 const login = createAction(LOGIN, (user) => ({ user }));
 
 // ! reducers
 export default handleActions(
-	{
-		[LOGIN]: (state, action) => produce(state, (draft) => {}),
-	},
-	initialState
+    {
+        [LOGIN]: (state, action) => produce(state, (draft) => {}),
+    },
+    initialState
 );
 
 const actionCreators = {
-	login,
+    login,
 };
 
 export { actionCreators };

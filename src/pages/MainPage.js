@@ -8,12 +8,26 @@ import axios from "axios";
 
 const MainPage = (props) => {
     let camp_list = [];
+    // React.useEffect(() => {
+    // 	axios
+    // 		.post('http://54.180.132.5/reviews', {
+    // 			userId: 53,
+    // 			campId: 1,
+    // 			content: 'content',
+    // 		})
+    // 		.then(function (response) {
+    // 			console.log(response);
+    // 		})
+    // 		.catch(function (error) {
+    // 			console.log(error.response.data);
+    // 		});
+    // }, []);
+
     React.useEffect(() => {
         axios
-            .get("http://54.180.132.5/")
+            .get("http://54.180.132.5/reviews/2")
             .then(function (response) {
-                camp_list = response.data;
-                console.log(camp_list);
+                console.log(response);
             })
             .catch(function (error) {
                 console.log(error);
