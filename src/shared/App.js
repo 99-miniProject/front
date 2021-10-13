@@ -38,7 +38,7 @@ function App() {
 						></Route>
 						<Route path="/post/:id" exact component={DetailPage} />
 					</BrowserRouter>
-					<Footer />
+					{/* <Footer /> */}
 				</Grid>
 			</Grid>
 		</>

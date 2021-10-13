@@ -4,8 +4,22 @@ import React from 'react';
 // * import Components
 import { Header, Footer, MainFilter, MainCard } from '../components/index';
 import { Input, Button, Text, Grid, Image } from '../elements/index';
+import axios from 'axios';
 
 const MainPage = (props) => {
+	React.useEffect(() => {
+		axios
+			.get('http://54.180.132.5/')
+			// 응답(성공)
+			.then(function (response) {
+				console.log(response);
+			})
+			// 응답(실패)
+			.catch(function (error) {
+				console.log(error);
+			});
+	}, []);
+
 	const resCampingData = [
 		{
 			id: 1,
