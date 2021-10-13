@@ -14,10 +14,15 @@ const signup = createAction(SIGNUP, (user_info) => ({ user_info }));
 const login = createAction(LOGIN, (user) => ({ user }));
 
 // ! middlewares
-const postSignup = () => {
+const postSignup = (username, nickname, password, passwordChk) => {
 	return function (dispatch, getState, { history }) {
 		instance
-			.post('/signup')
+			.post('/signup', {
+				username,
+				nickname,
+				password,
+				passwordChk,
+			})
 			.then((res) => {
 				console.log(res);
 			})
@@ -38,6 +43,7 @@ export default handleActions(
 
 const actionCreators = {
 	login,
+	postSignup,
 };
 
 export { actionCreators };
