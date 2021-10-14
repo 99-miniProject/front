@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { Button, Text, Grid } from '../elements/index';
+import { Button, Text, Grid } from "../elements/index";
 
 const MainFilter = () => {
 	const filterNames = ['애완동물과 함께', '차박', '글램핑', '당일 예약'];
@@ -20,7 +20,7 @@ const MainFilter = () => {
 								bradius="15px"
 								others="&:hover{background-color:white;color:black;border:1px solid gray;}"
 							>
-								필터{name}
+								{name}
 							</Button>
 						))}
 					</Grid>

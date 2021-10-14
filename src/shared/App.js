@@ -1,6 +1,6 @@
 // * react basic import
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React from "react";
+import { Route } from "react-router-dom";
 
 // * to use redux
 import { ConnectedRouter } from 'connected-react-router';
@@ -8,17 +8,18 @@ import { history } from '../redux/configStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as campCreators } from '../redux/modules/camp';
 
+
 // * components import
-import { Header, Footer } from '../components';
-import { Grid } from '../elements';
+import { Header, Footer } from "../components";
+import { Grid } from "../elements";
 import {
-	LoginPage,
-	MainPage,
-	MyPage,
-	ReservePage,
-	SignupPage,
-	DetailPage,
-} from '../pages/index';
+    LoginPage,
+    MainPage,
+    MyPage,
+    ReservePage,
+    SignupPage,
+    DetailPage,
+} from "../pages/index";
 
 function App() {
 	const dispatch = useDispatch();

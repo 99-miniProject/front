@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 const Input = (props) => {
     const {
+        type,
+        value,
         width,
         height,
         fontSize,
@@ -20,6 +22,8 @@ const Input = (props) => {
             <label>{text}</label>
             <ElInput
                 {...styles}
+                type={type}
+                value={value}
                 onChange={_onChange}
                 placeholder={placeholder}
             />
@@ -28,6 +32,8 @@ const Input = (props) => {
 };
 
 Input.defaultProps = {
+    type: "text",
+    value: "",
     width: "100%",
     height: "3rem",
     fontSize: "14px",
