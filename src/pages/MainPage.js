@@ -1,31 +1,47 @@
-// ! kyuung 메인페이지 입니다
 // * import Basic
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as campCreators } from '../redux/modules/camp';
 
 // * import Components
-import { Header, Footer, MainFilter } from '../components/index';
+import { Header, Footer, MainFilter, MainCard } from '../components/index';
 import { Input, Button, Text, Grid, Image } from '../elements/index';
-import { MainCard } from '../components/index';
 
-const MainPage = () => {
+const MainPage = (props) => {
+	const camp_list = useSelector((state) => state.camp.list);
+
 	return (
 		<>
-			<Image
-				width="100vw"
-				height="20rem"
-				src="https://my-speak-app.s3.ap-northeast-2.amazonaws.com/camp.jpg"
-			>
-				<Text color="white" center fontSize="3rem">
-					타이틀 !
-				</Text>
-			</Image>
-			<MainFilter />
-			<div style={{ display: 'flex' }}>
-				<MainCard />
-				<MainCard />
-				<MainCard />
-			</div>
-			<Footer />
+			<Grid fd="column" width="100vw">
+				<Image
+					width="100vw"
+					height="20rem"
+					src="https://my-speak-app.s3.ap-northeast-2.amazonaws.com/camp.jpg"
+				>
+					<Grid width="100%" height="100%">
+						<Text color="white" center fontSize="3rem">
+							Camping Camping
+						</Text>
+					</Grid>
+				</Image>
+				<MainFilter />
+				<Grid
+					jc="space-between"
+					width="70vw"
+					height="50vh"
+					others="flex-wrap:wrap"
+				>
+					{camp_list.map((data, idx) => (
+						<MainCard
+							key={idx}
+							camp_id={data.id}
+							camp_name={data.name}
+							camp_price={data.price}
+							camp_src={data.img}
+						/>
+					))}
+				</Grid>
+			</Grid>
 		</>
 	);
 };
