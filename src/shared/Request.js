@@ -1,9 +1,5 @@
-import axios from 'axios';
-
-const BASE_URL = 'http://54.180.132.5/';
-
+import axios from "axios";
 const instance = axios.create({
-	BASE_URL,
+    baseURL: "http://jhhong0930.shop",
 });
-
 export default instance;

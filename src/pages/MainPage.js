@@ -9,30 +9,32 @@ import axios from "axios";
 const MainPage = (props) => {
     let camp_list = [];
     // React.useEffect(() => {
+    // 	const date = new Date();
+    //     axios
+    //     	.post('http://jhhong0930.shop/books', {
+    //     		userId: 1,
+    //     		campId: 1,
+    //     		count: 2,
+    //     		checkinDate: date,
+    //     	})
+    //     	.then(function (response) {
+    //     		console.log(response);
+    //     	})
+    //     	.catch(function (error) {
+    //     		console.log(error.response.data);
+    //     	});
+    // }, []);
+
+    // React.useEffect(() => {
     // 	axios
-    // 		.post('http://54.180.132.5/reviews', {
-    // 			userId: 53,
-    // 			campId: 1,
-    // 			content: 'content',
-    // 		})
+    // 		.get('http://jhhong0930.shop/books/2')
     // 		.then(function (response) {
     // 			console.log(response);
     // 		})
     // 		.catch(function (error) {
-    // 			console.log(error.response.data);
+    // 			console.log(error);
     // 		});
     // }, []);
-
-    React.useEffect(() => {
-        axios
-            .get("http://54.180.132.5/reviews/2")
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
 
     return (
         <>
