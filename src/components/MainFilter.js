@@ -1,10 +1,16 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
-import { Button, Text, Grid } from "../elements/index";
+import { Button, Text, Grid } from '../elements/index';
+import { actionCreators as campCreators } from '../redux/modules/camp';
 
 const MainFilter = () => {
-	const filterNames = ['애완동물과 함께', '차박', '글램핑', '당일 예약'];
+	const dispatch = useDispatch();
+	const filterNames = ['전체', '애견', '차박', '글램핑', '당일'];
+	const filter = (e) => {
+		dispatch(campCreators.setFilter(e.target.innerText));
+	};
 	return (
 		<>
 			<Grid others="margin-top:1.5rem;margin-bottom:1.5rem;">
@@ -13,7 +19,8 @@ const MainFilter = () => {
 						{filterNames.map((name, idx) => (
 							<Button
 								key={idx}
-								width="6rem"
+								_onClick={filter}
+								width="8rem"
 								height="2.6rem"
 								bgColor="black"
 								fontColor="white"

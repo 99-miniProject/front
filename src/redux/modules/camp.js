@@ -1,6 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import instance from '../../shared/Request';
+import { getCookie } from '../../shared/Cookie';
+import axios from 'axios';
 
 const initialState = {
 	list: [],
@@ -10,10 +12,12 @@ const initialState = {
 // ! action types
 const SET_POST = 'SET_POST';
 const SET_REVIEW = 'SET_REVIEW';
+const SET_FILTER = 'SET_FILTER';
 
 // ! action creators
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const setReview = createAction(SET_REVIEW, (review_list) => ({ review_list }));
+const setFilter = createAction(SET_FILTER, (value) => ({ value }));
 
 // ! middle wares
 const getPost = () => {
@@ -34,7 +38,6 @@ const getReviews = (campId) => {
 		instance
 			.get(`reviews/${campId}`)
 			.then((res) => {
-				console.log(res);
 				dispatch(setReview(res.data));
 			})
 			.catch((err) => {
@@ -45,9 +48,8 @@ const getReviews = (campId) => {
 
 const postReview = (review_info) => {
 	return function (dispatch, getState, { history }) {
-		console.log(review_info);
 		instance
-			.post('/reviews', {
+			.post('reviews', {
 				campId: review_info.camp_id,
 				content: review_info.content,
 			})
@@ -89,6 +91,10 @@ export default handleActions(
 			produce(state, (draft) => {
 				draft['reviews'] = action.payload.review_list;
 			}),
+		[SET_FILTER]: (state, action) =>
+			produce(state, (draft) => {
+				draft['filter'] = action.payload.value;
+			}),
 	},
 	initialState
 );
@@ -98,6 +104,7 @@ const actionCreators = {
 	postReview,
 	postReserve,
 	getReviews,
+	setFilter,
 };
 
 export { actionCreators };

@@ -6,8 +6,9 @@ import { Refresh } from '@material-ui/icons';
 
 const Reviews = (props) => {
 	const dispatch = useDispatch();
-	const { review_user_name, review_user_content, post_id } = props;
+	const { post_id } = props;
 	const [_content, setContent] = React.useState('');
+	const [_reviews_, setReviews] = React.useState([]);
 
 	const postReview = () => {
 		const review_info = { camp_id: post_id, content: _content };
@@ -18,14 +19,20 @@ const Reviews = (props) => {
 	const refReviews = reviews.filter(
 		(review) => review.camp.id === Number(post_id)
 	);
-	const refReviewsParse = refReviews.map((refreview, idx) => {
-		const review_info = {
-			review_id: refReviews.id,
-			content: refreview.content,
-			writre: refreview.user.nickname,
-		};
-		console.log(review_info);
-	});
+	React.useEffect(() => {
+		console.log(refReviews);
+		// let _reviews = [];
+		// const refReviewsParse = refReviews.map((refreview, idx) => {
+		// 	const review_info = {
+		// 		review_id: refreview.id,
+		// 		content: refreview.content,
+		// 		writer: refreview.user.nickname,
+		// 	};
+		// 	_reviews.push(review_info);
+		// });
+		// console.log(_reviews);
+		// setReviews(_reviews);
+	}, []);
 
 	return (
 		<>
@@ -41,6 +48,7 @@ const Reviews = (props) => {
 						</Text>
 						<Input
 							text=""
+							value={_content}
 							width="40vw"
 							height="2.5rem"
 							placeholder="리뷰를 여기 작성해주세요"
@@ -59,18 +67,26 @@ const Reviews = (props) => {
 						등록
 					</Button>
 				</Grid>
-				<Grid width="45vw" jc="left" others="margin-bottom:2rem;">
-					<Grid others="margin-right:3rem;">
-						<Image width="4rem" height="4rem" bradius="50px" />
-						<Text
-							fontSize="1.2rem"
-							bold="700"
-							others="margin-left:1rem"
-						>
-							{review_user_name}
-						</Text>
-					</Grid>
-					<Text>{review_user_content}</Text>
+				<Grid
+					width="45vw"
+					jc="left"
+					others="margin-bottom:2rem;"
+					fd="column"
+				>
+					{_reviews_.map((review, idx) => {
+						return (
+							<Grid others="margin-right:3rem;" key={idx}>
+								<Text
+									fontSize="1.2rem"
+									bold="700"
+									others="margin-left:1rem"
+								>
+									review.writer
+								</Text>
+								<Text>review.content</Text>
+							</Grid>
+						);
+					})}
 				</Grid>
 			</Grid>
 		</>
