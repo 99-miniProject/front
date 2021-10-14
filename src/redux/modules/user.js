@@ -41,24 +41,26 @@ const postSignup = (id, nick, pw, pwcheck) => {
 };
 
 const postLogIn = (id, pw) => {
-	return function (dispatch, getState, { history }) {
-		instance
-			.post('/login', {
-				username: id,
-				password: pw,
-			})
-			.then((res) => {
-				setCookie('token', res.data[1].token, 7);
-				localStorage.setItem('username', res.data[0].username);
-				dispatch(logIn({ id: id }));
-				history.replace('/');
-			})
-			.catch((err) => {
-				window.alert(
-					'일치하는 회원 정보가 없습니다! 회원가입을 해주세요!'
-				);
-			});
-	};
+    return function (dispatch, getState, { history }) {
+        instance
+            .post("/login", {
+                username: id,
+                password: pw,
+            })
+            .then((res) => {
+                // setCookie("token", res.data[1].token, 7);
+                setCookie("token", res.data[1].token, 7);
+                localStorage.setItem("username", res.data[0].username);
+                dispatch(logIn({ id: id }));
+                console.log(logIn({ id }), res.data);
+                history.replace("/");
+            })
+            .catch((err) => {
+                window.alert(
+                    "일치하는 회원 정보가 없습니다! 회원가입을 해주세요!"
+                );
+            });
+    };
 };
 
 const postLogOut = () => {
@@ -79,24 +81,6 @@ const postLogInCheck = () => {
 		} else {
 			dispatch(logOut());
 		}
-	};
-};
-
-const postLogin = (user_info) => {
-	return function (dispatch, getState, { history }) {
-		console.log(user_info);
-		instance
-			.post('/login', {
-				username: user_info.id,
-				password: user_info.pwd,
-			})
-			.then((res) => {
-				console.log(res.data[1].token);
-				setCookie('token', res.data[1].token);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
 	};
 };
 
