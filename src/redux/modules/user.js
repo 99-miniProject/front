@@ -84,21 +84,21 @@ const postLogInCheck = () => {
 };
 
 const postLogin = (user_info) => {
-	return function (dispatch, getState, { history }) {
-		console.log(user_info);
-		instance
-			.post('/login', {
-				username: user_info.id,
-				password: user_info.pwd,
-			})
-			.then((res) => {
-				console.log(res.data[1].token);
-				setCookie('token', res.data[1].token);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
+    return function (dispatch, getState, { history }) {
+        console.log(user_info);
+        instance
+            .post("/login", {
+                username: user_info.id,
+                password: user_info.pwd,
+            })
+            .then((res) => {
+                console.log(res.data[1].token);
+                setCookie("token", res.data[1].token);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 };
 
 // ! reducers
@@ -128,6 +128,7 @@ const actionCreators = {
     logOut,
     postLogIn,
     postSignup,
+    postLogin,
     postLogInCheck,
     postLogOut,
 };
