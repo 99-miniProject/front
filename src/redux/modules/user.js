@@ -49,9 +49,11 @@ const postLogIn = (id, pw) => {
                 password: pw,
             })
             .then((res) => {
+                // setCookie("token", res.data[1].token, 7);
                 setCookie("token", res.data[1].token, 7);
                 localStorage.setItem("username", res.data[0].username);
                 dispatch(logIn({ id: id }));
+                console.log(logIn({ id }), res.data);
                 history.replace("/");
             })
             .catch((err) => {
@@ -83,24 +85,6 @@ const postLogInCheck = () => {
     };
 };
 
-const postLogin = (user_info) => {
-    return function (dispatch, getState, { history }) {
-        console.log(user_info);
-        instance
-            .post("/login", {
-                username: user_info.id,
-                password: user_info.pwd,
-            })
-            .then((res) => {
-                console.log(res.data[1].token);
-                setCookie("token", res.data[1].token);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-};
-
 // ! reducers
 export default handleActions(
     {
@@ -128,7 +112,6 @@ const actionCreators = {
     logOut,
     postLogIn,
     postSignup,
-    postLogin,
     postLogInCheck,
     postLogOut,
 };
