@@ -1,7 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
-
 import instance from "../../shared/Request";
 
 const initialState = {
@@ -21,6 +20,7 @@ const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
 
 // ! middlewares
+
 const postSignup = (id, nick, pw, pwcheck) => {
     return function (dispatch, getState, { history }) {
         instance
@@ -81,6 +81,24 @@ const postLogInCheck = () => {
             dispatch(logOut());
         }
     };
+};
+
+const postLogin = (user_info) => {
+	return function (dispatch, getState, { history }) {
+		console.log(user_info);
+		instance
+			.post('/login', {
+				username: user_info.id,
+				password: user_info.pwd,
+			})
+			.then((res) => {
+				console.log(res.data[1].token);
+				setCookie('token', res.data[1].token);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 };
 
 // ! reducers

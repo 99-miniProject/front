@@ -1,9 +1,10 @@
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
-
+import { actionCreators as userCreators } from '../redux/modules/user';
 import { Grid, Text, Input, Button } from "../elements";
 import { idCheck, nickCheck } from "../shared/regExp";
+
 
 const SignupPage = ({ history }) => {
     const isLogin = useSelector((store) => store.user.is_login);
