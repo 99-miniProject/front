@@ -45,9 +45,9 @@ const getReviews = (campId) => {
 
 const postReview = (review_info) => {
 	return function (dispatch, getState, { history }) {
+		console.log(review_info);
 		instance
 			.post('/reviews', {
-				// ! !!!!!!!!!!! 이부분이요요ㅛ옹
 				campId: review_info.camp_id,
 				content: review_info.content,
 			})

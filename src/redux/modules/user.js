@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import instance from '../../shared/Request';
+import { setCookie } from '../../shared/cookie';
 
 // * nickname, id, pwd, uid, is_login
 const initialState = {};
@@ -41,8 +42,8 @@ const postLogin = (user_info) => {
 				password: user_info.pwd,
 			})
 			.then((res) => {
-				// 토큰 어딧징? 받으면 쿠키에 넣쟈
-				console.log(res);
+				console.log(res.data[1].token);
+				setCookie('token', res.data[1].token);
 			})
 			.catch((err) => {
 				console.log(err);

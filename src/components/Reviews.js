@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, Button, Text, Grid, Image } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as campCreators } from '../redux/modules/camp';
+import { Refresh } from '@material-ui/icons';
 
 const Reviews = (props) => {
 	const dispatch = useDispatch();
@@ -14,7 +15,17 @@ const Reviews = (props) => {
 	};
 
 	const reviews = useSelector((state) => state.camp.reviews);
-	console.log('>>>>', reviews);
+	const refReviews = reviews.filter(
+		(review) => review.camp.id === Number(post_id)
+	);
+	const refReviewsParse = refReviews.map((refreview, idx) => {
+		const review_info = {
+			review_id: refReviews.id,
+			content: refreview.content,
+			writre: refreview.user.nickname,
+		};
+		console.log(review_info);
+	});
 
 	return (
 		<>

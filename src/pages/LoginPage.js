@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { actionCreators as userCreators } from '../redux/modules/user';
+// import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
 
 import { Grid, Text, Input, Button } from '../elements';
 
