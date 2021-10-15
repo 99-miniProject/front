@@ -1,8 +1,9 @@
 // * import Basic
+// ! 필터가 늦게 넘어온다링
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as campCreators } from '../redux/modules/camp';
-import axios from 'axios';
+import { history } from '../redux/configStore';
 
 // * import Components
 import { Header, Footer, MainFilter, MainCard } from '../components/index';
@@ -11,22 +12,12 @@ import { Input, Button, Text, Grid, Image } from '../elements/index';
 const MainPage = (props) => {
 	const camp_list = useSelector((state) => state.camp.list);
 	const camp_filter = useSelector((state) => state.camp.filter);
+	const modal_status = useSelector((state) => state.pages.modal);
 	const [filtering, setFiltering] = React.useState([]);
-	const _filter = (value) => {
-		if (value !== '전체') {
-			console.log(value);
-			const result = camp_list.filter((camp) =>
-				camp.category.includes(value)
-			);
-			setFiltering(result);
-			console.log(result);
-			console.log(filtering);
-		} else {
-			setFiltering(camp_list);
-		}
-	};
+
 	React.useEffect(() => {
-		_filter(camp_filter);
+		setFiltering(camp_filter);
+		console.log('>>filtering', filtering);
 	}, [camp_filter]);
 
 	return (
@@ -57,6 +48,10 @@ const MainPage = (props) => {
 							camp_name={data.name}
 							camp_price={data.price}
 							camp_src={data.img}
+							_onClick={() => {
+								console.log(data.id);
+								history.push(`/camps/${data.id}`);
+							}}
 						/>
 					))}
 				</Grid>

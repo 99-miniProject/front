@@ -1,38 +1,32 @@
+// ! 수정 구현해야댐
 import React from 'react';
 import { Input, Button, Text, Grid, Image } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as campCreators } from '../redux/modules/camp';
-import { Refresh } from '@material-ui/icons';
+import { actionCreators as pageCreators } from '../redux/modules/pages';
 
 const Reviews = (props) => {
 	const dispatch = useDispatch();
 	const { post_id } = props;
-	const [_content, setContent] = React.useState('');
-	const [_reviews_, setReviews] = React.useState([]);
+	const review_list = useSelector((state) => state.camp.reviews);
 
+	const [_content, setContent] = React.useState('');
+	const [_reviews, setReviews] = React.useState([]);
+
+	// * get reviews
+	React.useEffect(() => {
+		const ref_reviews = review_list.filter(
+			(review) => review.camp.id === Number(post_id)
+		);
+		setReviews(ref_reviews);
+	}, [review_list]);
+
+	// * review Post
 	const postReview = () => {
 		const review_info = { camp_id: post_id, content: _content };
 		dispatch(campCreators.postReview(review_info));
+		window.alert('댓글을 작성했습니다');
 	};
-
-	const reviews = useSelector((state) => state.camp.reviews);
-	const refReviews = reviews.filter(
-		(review) => review.camp.id === Number(post_id)
-	);
-	React.useEffect(() => {
-		console.log(refReviews);
-		// let _reviews = [];
-		// const refReviewsParse = refReviews.map((refreview, idx) => {
-		// 	const review_info = {
-		// 		review_id: refreview.id,
-		// 		content: refreview.content,
-		// 		writer: refreview.user.nickname,
-		// 	};
-		// 	_reviews.push(review_info);
-		// });
-		// console.log(_reviews);
-		// setReviews(_reviews);
-	}, []);
 
 	return (
 		<>
@@ -73,17 +67,59 @@ const Reviews = (props) => {
 					others="margin-bottom:2rem;"
 					fd="column"
 				>
-					{_reviews_.map((review, idx) => {
+					{_reviews.map((review, idx) => {
 						return (
-							<Grid others="margin-right:3rem;" key={idx}>
+							<Grid
+								width="45vw"
+								others="margin-right:3rem;margin-bottom:1rem"
+								jc="space-between"
+								key={idx}
+							>
 								<Text
 									fontSize="1.2rem"
 									bold="700"
 									others="margin-left:1rem"
 								>
-									review.writer
+									{review?.user?.username}
 								</Text>
-								<Text>review.content</Text>
+								<Text>{review?.content}</Text>
+								<Grid>
+									<Button
+										others={'margin-right:1rem'}
+										_onClick={() => {
+											dispatch(
+												pageCreators.setModal(true)
+											);
+											const ids = {
+												review: review.id,
+												post: Number(post_id),
+											};
+
+											dispatch(
+												pageCreators.setReviewId(ids)
+											);
+										}}
+									>
+										수정
+									</Button>
+									<Button
+										_onClick={() => {
+											const q =
+												window.confirm(
+													'리뷰를 삭제하시겠습니까 ? '
+												);
+											if (q) {
+												dispatch(
+													campCreators.deleteReview(
+														review.id
+													)
+												);
+											}
+										}}
+									>
+										삭제
+									</Button>
+								</Grid>
 							</Grid>
 						);
 					})}
@@ -91,11 +127,6 @@ const Reviews = (props) => {
 			</Grid>
 		</>
 	);
-};
-
-Reviews.defaultProps = {
-	review_user_name: 'kyuung',
-	review_user_content: '여기서 키우는 고양이가 진짜 귀여워요 !!',
 };
 
 export default Reviews;
