@@ -1,5 +1,5 @@
 // * import Basic
-// ! 필터 구현해야함
+// ! 필터가 늦게 넘어온다링
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as campCreators } from '../redux/modules/camp';
@@ -12,22 +12,12 @@ import { Input, Button, Text, Grid, Image } from '../elements/index';
 const MainPage = (props) => {
 	const camp_list = useSelector((state) => state.camp.list);
 	const camp_filter = useSelector((state) => state.camp.filter);
+	const modal_status = useSelector((state) => state.pages.modal);
 	const [filtering, setFiltering] = React.useState([]);
-	const _filter = (value) => {
-		if (value !== '전체') {
-			console.log(value);
-			const result = camp_list.filter((camp) =>
-				camp.category.includes(value)
-			);
-			setFiltering(result);
-			console.log(result);
-			console.log(filtering);
-		} else {
-			setFiltering(camp_list);
-		}
-	};
+
 	React.useEffect(() => {
-		_filter(camp_filter);
+		setFiltering(camp_filter);
+		console.log('>>filtering', filtering);
 	}, [camp_filter]);
 
 	return (
