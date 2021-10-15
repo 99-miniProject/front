@@ -1,8 +1,23 @@
 import React from 'react';
 import { Grid, Button, Input, Text, Image } from '../elements/index';
 import styled from 'styled-components';
+import axios from 'axios';
+import { getCookie } from '../shared/Cookie';
 
 const MyPage = () => {
+	React.useEffect(() => {
+		axios
+			.get('http://jhhong0930.shop/mypage', {
+				headers: { 'X-AUTH-TOKEN': getCookie('token') },
+			})
+			.then((res) => {
+				console.log('>>>', res);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	});
+
 	return (
 		<Grid height={'80vh'}>
 			<ReservePage>

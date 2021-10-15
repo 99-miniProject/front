@@ -62,9 +62,17 @@ const postReview = (review_info) => {
 	};
 };
 
+const reviewDelete = (reserve_info) => {
+	return function (dispatch, getState, { history }) {
+		console.log('>>middleware', reserve_info);
+		instance.delete(`/reviews/${reserve_info.postId}`, {
+			reviewId: reserve_info.reviewId,
+		});
+	};
+};
+
 const postReserve = (reserve_info) => {
 	return function (disptach, getState, { history }) {
-		console.log(reserve_info);
 		instance
 			.post('/books', {
 				campId: reserve_info.camp_id,
@@ -73,6 +81,8 @@ const postReserve = (reserve_info) => {
 			})
 			.then((res) => {
 				console.log(res);
+				window.alert('예약이 완료되었습니다 ! ');
+				history.replace('/');
 			})
 			.catch((err) => {
 				console.log(err);
@@ -105,6 +115,7 @@ const actionCreators = {
 	postReserve,
 	getReviews,
 	setFilter,
+	reviewDelete,
 };
 
 export { actionCreators };

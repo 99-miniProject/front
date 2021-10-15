@@ -5,17 +5,11 @@ import styled from 'styled-components';
 import { Grid, Image, Text, Button } from '../elements/index';
 
 const MainCard = (props) => {
-	const { camp_id, camp_name, camp_price, camp_src } = props;
-	const history = useHistory();
+	const { camp_id, camp_name, camp_price, camp_src, _onClick } = props;
 
 	return (
 		<>
-			<PointerDiv
-				styles={{ cursor: 'pointer' }}
-				onClick={() => {
-					history.push(`/post/${camp_id}`);
-				}}
-			>
+			<PointerDiv styles={{ cursor: 'pointer' }} onClick={_onClick}>
 				<Grid
 					fd="column"
 					ai="left"
@@ -51,6 +45,7 @@ MainCard.defaultProps = {
 	camp_name: '숲 캠핑장',
 	camp_price: '85,000 ~ 100,000',
 	camp_src: 'https://my-speak-app.s3.ap-northeast-2.amazonaws.com/camp.jpg',
+	_onClick: () => {},
 };
 
 const PointerDiv = styled.div`

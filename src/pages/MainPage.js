@@ -1,8 +1,9 @@
 // * import Basic
+// ! 필터 구현해야함
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as campCreators } from '../redux/modules/camp';
-import axios from 'axios';
+import { history } from '../redux/configStore';
 
 // * import Components
 import { Header, Footer, MainFilter, MainCard } from '../components/index';
@@ -57,6 +58,10 @@ const MainPage = (props) => {
 							camp_name={data.name}
 							camp_price={data.price}
 							camp_src={data.img}
+							_onClick={() => {
+								console.log(data.id);
+								history.push(`/post/${data.id}`);
+							}}
 						/>
 					))}
 				</Grid>

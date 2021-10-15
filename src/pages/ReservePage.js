@@ -12,25 +12,34 @@ import 'react-day-picker/lib/style.css';
 const ReservePage = (props) => {
 	const dispatch = useDispatch();
 	const post_id = props.match.params.id;
+
 	const camp_list = useSelector((state) => state.camp.list);
-	const refCamp = camp_list.filter((camp) => camp.id === Number(post_id));
-	const refCapacity = refCamp[0].capacity;
+	const [_camps, setCamps] = React.useState({});
+
+	React.useEffect(() => {
+		const refCamp = camp_list.filter((camp) => camp.id === Number(post_id));
+		setCamps(refCamp[0]);
+	}, [camp_list]);
+
+	// const refCapacity = refCamp[0].capacity;
 
 	const [reserveCtn, setReserveCtn] = React.useState(0);
-	const [_checkIn, setCheckIn] = React.useState(0);
+	const [_checkIn, setCheckIn] = React.useState('');
+
+	const toDate = new Date(_checkIn);
 
 	const reserve = () => {
 		const review_info = {
 			camp_id: post_id,
 			count: reserveCtn,
-			checkIn: _checkIn,
+			checkIn: toDate,
 		};
 		dispatch(campCreators.postReserve(review_info));
 	};
 
 	const selects = () => {
 		let array = [];
-		for (let i = 1; i < refCapacity + 1; i++) {
+		for (let i = 1; i < _camps?.capacity + 1; i++) {
 			array.push(<option key={i}>{i}</option>);
 		}
 		return array;
@@ -41,12 +50,13 @@ const ReservePage = (props) => {
 			<Grid width="60vw">
 				<Grid width="60vw" fd="column">
 					<Text fontSize="4rem" bold="700" others="margin:2rem;">
-						{refCamp[0].name}
+						{_camps?.name}
 					</Text>
 					<Image
 						others="-webkit-box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78); 
 							box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78);margin-bottom:1.3rem;"
 						bradius="18px"
+						src={_camps?.img}
 					/>
 					<Grid fd="column" width="50vw" jc="left">
 						<Grid
@@ -62,7 +72,7 @@ const ReservePage = (props) => {
 							>
 								가격
 							</Text>
-							<Text fontSize="1rem">{refCamp[0].price}</Text>
+							<Text fontSize="1rem">{_camps?.price}</Text>
 						</Grid>
 						<Grid width="100%" jc="left" others="margin-left:20vw">
 							<Text
@@ -73,7 +83,7 @@ const ReservePage = (props) => {
 							>
 								인원
 							</Text>
-							<Text fontSize="1rem">{refCamp[0].capacity}명</Text>
+							<Text fontSize="1rem">{_camps?.capacity}명</Text>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -81,7 +91,11 @@ const ReservePage = (props) => {
 					<DayPicker
 						format="DD/MM/YYYY"
 						onDayClick={(e) => {
-							setCheckIn(e.toLocaleDateString());
+							let day = e.toLocaleDateString();
+							day = day.replaceAll('.', '-');
+							day = day.replaceAll(' ', '');
+							day = day.slice(0, 10);
+							setCheckIn(day);
 						}}
 					/>
 					<Text bold="700">체크인 날짜 : {_checkIn}</Text>
