@@ -24,4 +24,14 @@ const deleteCookie = (name) => {
 	document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
 };
 
-export { getCookie, setCookie, deleteCookie };
+// get id from jwt-token
+const getIdFromToken = () => {
+	const token = getCookie('token');
+	const payload = token.split('.')[1];
+	const decoded = atob(payload);
+	const index = decoded.indexOf('","iat');
+	const login_user_id = decoded.slice(8, index);
+	return login_user_id;
+};
+
+export { getCookie, setCookie, deleteCookie, getIdFromToken };

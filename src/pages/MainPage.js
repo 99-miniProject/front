@@ -1,5 +1,4 @@
 // * import Basic
-// ! 필터가 늦게 넘어온다링
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as campCreators } from '../redux/modules/camp';
@@ -16,8 +15,11 @@ const MainPage = (props) => {
 	const [filtering, setFiltering] = React.useState([]);
 
 	React.useEffect(() => {
-		setFiltering(camp_filter);
-		console.log('>>filtering', filtering);
+		const test = camp_list.filter((camp) =>
+			camp?.category.includes(camp_filter === '전체' ? '' : camp_filter)
+		);
+		setFiltering(test);
+		console.log(test);
 	}, [camp_filter]);
 
 	return (
@@ -41,7 +43,7 @@ const MainPage = (props) => {
 					height="50vh"
 					others="flex-wrap:wrap"
 				>
-					{camp_list.map((data, idx) => (
+					{filtering.map((data, idx) => (
 						<MainCard
 							key={idx}
 							camp_id={data.id}
