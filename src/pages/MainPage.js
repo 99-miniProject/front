@@ -50,7 +50,7 @@ const MainPage = (props) => {
 							camp_src={data.img}
 							_onClick={() => {
 								console.log(data.id);
-								history.push(`/post/${data.id}`);
+								history.push(`/camps/${data.id}`);
 							}}
 						/>
 					))}

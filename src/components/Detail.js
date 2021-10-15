@@ -69,7 +69,7 @@ const Detail = (props) => {
 				bradius="15px"
 				others="margin-top:2rem;&:hover{opacity:80%}"
 				_onClick={() => {
-					history.push(`/reserve/${_camps.id}`);
+					history.push(`/books/${_camps.id}`);
 				}}
 			>
 				예약하러가기
