@@ -6,23 +6,8 @@ import { Button, Text, Grid } from '../elements/index';
 import { actionCreators as campCreators } from '../redux/modules/camp';
 
 const MainFilter = (props) => {
-	const filterNames = ['전체', '애견', '차박', '글램핑', '당일'];
-	const camp_list = useSelector((state) => state.camp.list);
 	const dispatch = useDispatch();
-
-	const _filter = (value) => {
-		if (value === '전체') {
-			console.log('>>value 전체', value);
-			const result = camp_list;
-			dispatch(campCreators.setFilter(result));
-		} else {
-			console.log('>>value 전체아님', value);
-			const result = camp_list.filter((camp) =>
-				camp.category.includes(value)
-			);
-			dispatch(campCreators.setFilter(result));
-		}
-	};
+	const filterNames = ['전체', '애견', '차박', '글램핑', '당일'];
 
 	return (
 		<>
@@ -32,7 +17,11 @@ const MainFilter = (props) => {
 						{filterNames.map((name, idx) => (
 							<Button
 								_onClick={(e) => {
-									_filter(e.target.innerText);
+									dispatch(
+										campCreators.setFilter(
+											e.target.innerText
+										)
+									);
 								}}
 								key={idx}
 								width="8rem"

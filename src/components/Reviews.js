@@ -1,14 +1,15 @@
-// ! 수정 구현해야댐
 import React from 'react';
 import { Input, Button, Text, Grid, Image } from '../elements/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as campCreators } from '../redux/modules/camp';
 import { actionCreators as pageCreators } from '../redux/modules/pages';
+import { getIdFromToken } from '../shared/Cookie';
 
 const Reviews = (props) => {
 	const dispatch = useDispatch();
 	const { post_id } = props;
 	const review_list = useSelector((state) => state.camp.reviews);
+	console.log(review_list);
 
 	const [_content, setContent] = React.useState('');
 	const [_reviews, setReviews] = React.useState([]);
@@ -28,6 +29,7 @@ const Reviews = (props) => {
 		window.alert('댓글을 작성했습니다');
 	};
 
+	console.log('>>', getIdFromToken() === review_list[0]?.user?.username);
 	return (
 		<>
 			<Grid fd="column" others="margin-bottom:1rem;">
@@ -83,43 +85,48 @@ const Reviews = (props) => {
 									{review?.user?.username}
 								</Text>
 								<Text>{review?.content}</Text>
-								<Grid>
-									<Button
-										others={'margin-right:1rem'}
-										_onClick={() => {
-											dispatch(
-												pageCreators.setModal(true)
-											);
-											const ids = {
-												review: review.id,
-												post: Number(post_id),
-											};
-
-											dispatch(
-												pageCreators.setReviewId(ids)
-											);
-										}}
-									>
-										수정
-									</Button>
-									<Button
-										_onClick={() => {
-											const q =
-												window.confirm(
-													'리뷰를 삭제하시겠습니까 ? '
-												);
-											if (q) {
+								{getIdFromToken() ===
+									review?.user?.username && (
+									<Grid>
+										<Button
+											others={'margin-right:1rem'}
+											_onClick={() => {
 												dispatch(
-													campCreators.deleteReview(
-														review.id
+													pageCreators.setModal(true)
+												);
+												const ids = {
+													review: review.id,
+													post: Number(post_id),
+												};
+
+												dispatch(
+													pageCreators.setReviewId(
+														ids
 													)
 												);
-											}
-										}}
-									>
-										삭제
-									</Button>
-								</Grid>
+											}}
+										>
+											수정
+										</Button>
+										<Button
+											_onClick={() => {
+												const q =
+													window.confirm(
+														'리뷰를 삭제하시겠습니까 ? '
+													);
+												if (q) {
+													dispatch(
+														campCreators.deleteReview(
+															review.id
+														)
+													);
+												}
+											}}
+										>
+											삭제
+										</Button>
+									</Grid>
+								)}
 							</Grid>
 						);
 					})}

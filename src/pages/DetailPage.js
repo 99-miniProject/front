@@ -7,6 +7,7 @@ import { Input, Button, Text, Grid, Image } from '../elements/index';
 import { Detail } from '../components/index';
 import { useDispatch, useSelector } from 'react-redux';
 import UpdateModal from '../components/UpdateModal';
+import { getCookie } from '../shared/Cookie';
 
 const DetailPage = (props) => {
 	const dispatch = useDispatch();
