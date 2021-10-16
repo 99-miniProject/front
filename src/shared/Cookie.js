@@ -34,4 +34,4 @@ const getIdFromToken = () => {
 	return login_user_id;
 };
 
-export { getCookie, setCookie, deleteCookie };
+export { getCookie, setCookie, deleteCookie, getIdFromToken };
