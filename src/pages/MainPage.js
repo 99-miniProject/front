@@ -35,11 +35,11 @@ const MainPage = (props) => {
 						<Text
 							color="#fff"
 							center
-							bold={600}
-							fontSize="2.5rem"
+							bold={700}
+							fontSize="5rem"
 							others={'text-shadow: 1px 1px 1px black;'}
 						>
-							Camping Connect
+							CAMP CONNECT
 						</Text>
 					</Grid>
 				</Image>

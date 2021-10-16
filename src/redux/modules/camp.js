@@ -15,6 +15,7 @@ const initialState = {
 const SET_POST = 'SET_POST';
 const SET_REVIEW = 'SET_REVIEW';
 const SET_RESERVE = 'SET_RESERVE';
+const DELETE_RESERVE = 'DELETE_RESERVE';
 const DELETE_REVIEW = 'DELETE_REVIEW';
 const CREATE_REVIEW = 'CREATE_REVIEW';
 const UPDATE_REVIEW = 'UPDATE_REVIEW';
@@ -37,6 +38,9 @@ const getMapRD = createAction(GET_MAP, (info) => ({ info }));
 const setMap = createAction(SET_MAP, (map) => ({ map }));
 const setReserve = createAction(SET_RESERVE, (reserve_list) => ({
 	reserve_list,
+}));
+const deleteReserveRD = createAction(DELETE_RESERVE, (reserveId) => ({
+	reserveId,
 }));
 
 // ! middlewares
@@ -164,6 +168,20 @@ const postReserve = (reserve_info) => {
 	};
 };
 
+const deleteReserve = (reserveId) => {
+	return function (dispatch, getState, { history }) {
+		instance
+			.delete(`/books/${reserveId}`)
+			.then((res) => {
+				console.log('abc', res.data);
+				dispatch(deleteReserveRD(reserveId));
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+};
+
 const getReserve = () => {
 	return function (dispatch, getState, { history }) {
 		instance
@@ -228,6 +246,13 @@ export default handleActions(
 			produce(state, (draft) => {
 				draft['reserve'] = action.payload.reserve_list;
 			}),
+		[DELETE_RESERVE]: (state, action) =>
+			produce(state, (draft) => {
+				const index = draft.reserve.findIndex(
+					(reserve) => reserve.id === action.payload.reserveId
+				);
+				if (index !== -1) draft.reserve.splice(index, 1);
+			}),
 	},
 	initialState
 );
@@ -243,6 +268,7 @@ const actionCreators = {
 	updateReview,
 	getMap,
 	setMap,
+	deleteReserve,
 };
 
 export { actionCreators };
