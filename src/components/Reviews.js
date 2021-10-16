@@ -86,13 +86,22 @@ const Reviews = (props) => {
 							>
 								<Grid jc="space-between" width="45vw">
 									<Grid width="40rem" jc="space-between">
-										<Text
-											fontSize="1.2rem"
-											bold="700"
-											others="margin-left:1rem"
-										>
-											{review?.user?.username}
-										</Text>
+										<Grid width="10rem">
+											<Text
+												fontSize="1.2rem"
+												bold="700"
+												others="margin-right:1rem"
+											>
+												{review?.user?.username}
+											</Text>
+										</Grid>
+										<Grid width="10rem">
+											<Text center>
+												{review?.regDate
+													.slice(0, 16)
+													.replace('T', ' , ')}
+											</Text>
+										</Grid>
 										<Grid jc="center" width="30vw">
 											<Text center>
 												{review?.content}

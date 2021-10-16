@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import instance from '../../shared/Request';
-import { getCookie } from '../../shared/Cookie';
+import { setCookie, getCookie, deleteCookie } from '../../shared/Cookie';
 import axios from 'axios';
 
 const initialState = {
@@ -92,7 +92,7 @@ const getReviews = (campId) => {
 				dispatch(setReview(res.data));
 			})
 			.catch((err) => {
-				console.log(err);
+				window.alert('로그인을 먼저 해주세요!');
 			});
 	};
 };

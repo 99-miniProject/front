@@ -55,7 +55,13 @@ const MainPage = (props) => {
 									camp_price={data.price}
 									camp_src={data.img}
 									_onClick={() => {
-										console.log(data.id);
+										const tokenCheck = document.cookie;
+										if (!tokenCheck) {
+											window.alert(
+												'로그인을 먼저 해주세요'
+											);
+											return;
+										}
 										history.push(`/camps/${data.id}`);
 									}}
 								/>

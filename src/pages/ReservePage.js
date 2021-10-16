@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as campCreators } from '../redux/modules/camp';
 import { Grid, Button, Input, Text, Image } from '../elements/index';
+import { history } from '../redux/configStore';
+import { getCookie } from '../shared/Cookie';
 
 //데이 피커
 import DayPicker from 'react-day-picker';
@@ -26,6 +28,12 @@ const ReservePage = (props) => {
 	const toDate = new Date(_checkIn);
 
 	const reserve = () => {
+		const token = getCookie('token');
+		if (!token) {
+			window.alert('로그인을 먼저 해주세요');
+			history.push('/login');
+			return;
+		}
 		if (_checkIn === '' || reserveCtn === 0) {
 			window.alert('인원수와 날짜를 모두 설정해주세요.');
 			return;
