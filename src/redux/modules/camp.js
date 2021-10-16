@@ -5,19 +5,21 @@ import { getCookie } from "../../shared/Cookie";
 import axios from "axios";
 
 const initialState = {
-    list: [],
-    reviews: [],
-    reserve: [],
+	list: [],
+	reviews: [],
+	maps: [],
+	set_map: [],
 };
 
 // ! action types
-const SET_POST = "SET_POST";
-const SET_REVIEW = "SET_REVIEW";
-const DELETE_REVIEW = "DELETE_REVIEW";
-const CREATE_REVIEW = "CREATE_REVIEW";
-const UPDATE_REVIEW = "UPDATE_REVIEW";
-const SET_FILTER = "SET_FILTER";
-const SET_RESERVE = "SET_RESERVE";
+const SET_POST = 'SET_POST';
+const SET_REVIEW = 'SET_REVIEW';
+const DELETE_REVIEW = 'DELETE_REVIEW';
+const CREATE_REVIEW = 'CREATE_REVIEW';
+const UPDATE_REVIEW = 'UPDATE_REVIEW';
+const SET_FILTER = 'SET_FILTER';
+const GET_MAP = 'GET_MAP';
+const SET_MAP = 'SET_MAP';
 
 // ! action creators
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
@@ -30,6 +32,8 @@ const createReviewRD = createAction(CREATE_REVIEW, (review_info) => ({
 }));
 const deleteReviewRD = createAction(DELETE_REVIEW, (id) => ({ id }));
 const setFilter = createAction(SET_FILTER, (value) => ({ value }));
+const getMapRD = createAction(GET_MAP, (info) => ({ info }));
+const setMap = createAction(SET_MAP, (map) => ({ map }));
 const setReserve = createAction(SET_RESERVE, (reserve_list) => ({
     reserve_list,
 }));
@@ -46,6 +50,33 @@ const getPost = () => {
                 console.log(err);
             });
     };
+};
+
+const getMap = (location) => {
+	return function (dispatch, getState, { history }) {
+		axios
+			.get(
+				`https://dapi.kakao.com/v2/local/search/address.json?query=${location}`,
+				{
+					headers: {
+						Authorization:
+							'KakaoAK 6d6976912ea54490d13f1e685e5ba6fe',
+					},
+				}
+			)
+			.then((res) => {
+				console.log('>>a', res.data.documents[0].road_address.x);
+				const info = {
+					lng: res.data.documents[0].road_address.x,
+					lat: res.data.documents[0].road_address.y,
+				};
+				dispatch(getMapRD(info));
+			})
+
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 };
 
 const getReviews = (campId) => {
@@ -170,35 +201,48 @@ export default handleActions(
                     draft.reviews[index] = action.payload.review_info;
             }),
 
-        [SET_FILTER]: (state, action) =>
-            produce(state, (draft) => {
-                draft["filter"] = action.payload.value;
-            }),
-        [DELETE_REVIEW]: (state, action) =>
-            produce(state, (draft) => {
-                const index = draft.reviews.findIndex(
-                    (review) => review.id === action.payload.id
-                );
-                console.log(">>", action.payload.id);
-                if (index !== -1) draft.reviews.splice(index, 1);
-            }),
-        [SET_RESERVE]: (state, action) =>
+		[SET_FILTER]: (state, action) =>
+			produce(state, (draft) => {
+				draft['filter'] = action.payload.value;
+			}),
+		[DELETE_REVIEW]: (state, action) =>
+			produce(state, (draft) => {
+				const index = draft.reviews.findIndex(
+					(review) => review.id === action.payload.id
+				);
+				console.log('>>', action.payload.id);
+				if (index !== -1) draft.reviews.splice(index, 1);
+			}),
+		[GET_MAP]: (state, action) =>
+			produce(state, (draft) => {
+				draft['maps'] = action.payload.info;
+				console.log('>>', action.payload.info);
+			}),
+		[SET_MAP]: (state, action) =>
+			produce(state, (draft) => {
+				draft['set_map'] = action.payload.map;
+				console.log('<<<<<', action.payload.map);
+			}),
+      [SET_RESERVE]: (state, action) =>
             produce(state, (draft) => {
                 draft["reserve"] = action.payload.reserve_list;
             }),
-    },
-    initialState
+	},
+	initialState
 );
 
 const actionCreators = {
-    getPost,
-    postReview,
-    postReserve,
-    getReviews,
-    getReserve,
-    setFilter,
-    deleteReview,
-    updateReview,
+	getPost,
+	postReview,
+	postReserve,
+	getReviews,
+   getReserve,
+	setFilter,
+	deleteReview,
+	updateReview,
+	getMap,
+	setMap,
+
 };
 
 export { actionCreators };

@@ -5,6 +5,7 @@ import { actionCreators as campCreators } from "../redux/modules/camp";
 import axios from "axios";
 import { getCookie, getIdFromToken } from "../shared/Cookie";
 const MyPage = () => {
+
     const dispatch = useDispatch();
 
     const reserve_list = useSelector((state) => state.camp.reserve);
@@ -72,5 +73,6 @@ const MyPage = () => {
             </Grid>
         </React.Fragment>
     );
+
 };
 export default MyPage;
