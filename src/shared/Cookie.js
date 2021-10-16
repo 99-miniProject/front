@@ -1,3 +1,4 @@
+import { history } from '../redux/configStore';
 // 키값 기준으로 쿠키에 저장된 값을 가져오는 함수
 const getCookie = (name) => {
 	// 쿠키 값을 가져옵니다.
@@ -27,6 +28,11 @@ const deleteCookie = (name) => {
 // get id from jwt-token
 const getIdFromToken = () => {
 	const token = getCookie('token');
+	if (!token) {
+		window.alert('로그인을 먼저 해주세요');
+		history.push('/login');
+		return;
+	}
 	const payload = token.split('.')[1];
 	const decoded = atob(payload);
 	const index = decoded.indexOf('","iat');
