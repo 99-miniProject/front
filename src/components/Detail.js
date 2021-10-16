@@ -21,19 +21,26 @@ const Detail = (props) => {
 
 	return (
 		<>
-			<Text fontSize="3.5rem" bold="700" others="margin:2rem;">
+			<Text
+				fontSize="3.5rem"
+				bold="700"
+				others="margin-top:2rem;margin-bottom:2rem;"
+			>
 				{_camps?.name}
 			</Text>
-			<Grid>
+			<Grid others="@media only screen and (max-width: 900px) {flex-direction:column}">
 				<Image
 					others="-webkit-box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78); 
-							box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78);margin-bottom:1.3rem;"
+							box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78);margin-bottom:1.3rem;
+							@media only screen and (min-width: 900px) {margin-right:0.5rem}"
 					bradius="18px"
 					width="20rem"
 					height="20rem"
 					src={_camps?.img}
 				/>
-				<Map lat={map_info?.lat} lng={map_info?.lng} />
+				<Grid others="@media only screen and (min-width: 900px) {margin-left:0.5rem}">
+					<Map lat={map_info?.lat} lng={map_info?.lng} />
+				</Grid>
 			</Grid>
 			<Text
 				fontSize="2rem"
@@ -58,10 +65,14 @@ const Detail = (props) => {
 					</Text>
 				</Grid>
 			</Text>
-			<Grid width="70vw" jc="space-between">
+			<Grid
+				width="70vw"
+				jc="center"
+				others="@media only screen and (max-width: 900px) {flex-direction:column}"
+			>
 				<Grid fd="column" width="25vw">
 					<Grid
-						width="25vw"
+						width="20rem"
 						jc="left"
 						others="margin-left:20vw;margin-bottom:2rem;"
 					>
@@ -75,7 +86,7 @@ const Detail = (props) => {
 						</Text>
 						<Text fontSize="1.5rem">{_camps?.price}</Text>
 					</Grid>
-					<Grid width="25vw" jc="left" others="margin-left:20vw">
+					<Grid width="20rem" jc="left" others="margin-left:20vw">
 						<Text
 							fontSize="2.3rem"
 							bold="700"
@@ -87,8 +98,15 @@ const Detail = (props) => {
 						<Text fontSize="1.5rem">{_camps?.capacity}명</Text>
 					</Grid>
 				</Grid>
-				<Grid width="35vw">
-					<Text center fontSize="1.3rem">
+				<Grid
+					width="30vw"
+					others="margin-right:10rem;@media only screen and (max-width: 900px) { margin-right:0;}"
+				>
+					<Text
+						center
+						fontSize="1.3rem"
+						others="@media only screen and (max-width: 900px) {font-size:1rem; margin-top:1rem;}"
+					>
 						{_camps?.info}
 					</Text>
 				</Grid>
