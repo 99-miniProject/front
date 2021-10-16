@@ -4,14 +4,14 @@ import { Grid, Text } from "../elements";
 const Footer = () => {
     return (
         <Grid
-            bg={"#7ad1c9"}
+            bg={"#add8ff"}
             padding={"16px;"}
             others={"z-index:2;margin-top: auto;"}
             width={"100vw"}
         >
             <Grid fd={"column"}>
                 <Grid padding={"16px"}>
-                    <Text color={"#464646"} fontSize={"1.5rem"} bold={"700"}>
+                    <Text color={"#194974"} fontSize={"1.5rem"} bold={"700"}>
                         항해99 - 11조 miniproject
                     </Text>
                 </Grid>
