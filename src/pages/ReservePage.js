@@ -6,7 +6,6 @@ import { Grid, Button, Input, Text, Image } from '../elements/index';
 
 //데이 피커
 import DayPicker from 'react-day-picker';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
 const ReservePage = (props) => {
@@ -49,22 +48,28 @@ const ReservePage = (props) => {
 
 	return (
 		<>
-			<Grid width="60vw">
-				<Grid width="60vw" fd="column">
-					<Text fontSize="4rem" bold="700" others="margin:2rem;">
+			<Grid width="70vw">
+				<Grid width="70vw" fd="column">
+					<Text
+						fontSize="3.5rem"
+						bold="700"
+						others="margin-top:2rem;"
+					>
 						{_camps?.name}
 					</Text>
 					<Image
 						others="-webkit-box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78); 
-							box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78);margin-bottom:1.3rem;"
+							box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78);margin-top:2rem;margin-bottom:2rem;"
 						bradius="18px"
 						src={_camps?.img}
+						width="20rem"
+						height="20rem"
 					/>
-					<Grid fd="column" width="50vw" jc="left">
+					<Grid fd="column" width="30vw" jc="left">
 						<Grid
 							width="100%"
 							jc="left"
-							others="margin-left:20vw;margin-bottom:2rem;"
+							others="margin-left:20rem;margin-bottom:2rem;"
 						>
 							<Text
 								fontSize="1.6rem"
@@ -74,9 +79,9 @@ const ReservePage = (props) => {
 							>
 								가격
 							</Text>
-							<Text fontSize="1rem">{_camps?.price}</Text>
+							<Text fontSize="1.3rem">{_camps?.price} 원</Text>
 						</Grid>
-						<Grid width="100%" jc="left" others="margin-left:20vw">
+						<Grid width="100%" jc="left" others="margin-left:20rem">
 							<Text
 								fontSize="1.6rem"
 								bold="700"
@@ -85,33 +90,39 @@ const ReservePage = (props) => {
 							>
 								인원
 							</Text>
-							<Text fontSize="1rem">{_camps?.capacity}명</Text>
+							<Text fontSize="1.3rem">{_camps?.capacity} 명</Text>
 						</Grid>
 					</Grid>
 				</Grid>
-				<Grid fd="column">
-					<DayPicker
-						format="DD/MM/YYYY"
-						onDayClick={(e) => {
-							let day = e.toLocaleDateString();
-							day = day.replaceAll('.', '-');
-							day = day.replaceAll(' ', '');
-							day = day.slice(0, 10);
-							setCheckIn(day);
-						}}
-					/>
-					<Text bold="700">체크인 날짜 : {_checkIn}</Text>
-				</Grid>
-			</Grid>
-			<Grid>
-				<Grid
-					fd="row"
-					jc="space-between"
-					width="60vw"
-					others="margin-top:4rem"
-				>
+				<Grid fd="column" width="70vw" others="margin-top:4.5rem;">
+					<Grid fd="column">
+						<DayPicker
+							format="DD/MM/YYYY"
+							onDayClick={(e) => {
+								let day = e.toLocaleDateString();
+								day = day.replaceAll('.', '-');
+								day = day.replaceAll(' ', '');
+								day = day.slice(0, 10);
+								setCheckIn(day);
+							}}
+						/>
+						<Text
+							bold="700"
+							fontSize="1.5rem"
+							others="margin-top:0.7rem;margin-bottom:1.5rem"
+						>
+							체크인 날짜 :{' '}
+							{_checkIn.slice(-1) === '-'
+								? _checkIn.slice(0, -1)
+								: _checkIn}
+						</Text>
+					</Grid>
 					<Grid jc="center" ai="center">
-						<Text bold="700" fontSize="1.6rem">
+						<Text
+							bold="700"
+							fontSize="1.5rem"
+							others="margin-left:2.5rem"
+						>
 							예약 할 인원수
 						</Text>
 						<Select
@@ -122,11 +133,21 @@ const ReservePage = (props) => {
 							{selects()}
 						</Select>
 					</Grid>
+				</Grid>
+			</Grid>
+			<Grid>
+				<Grid
+					fd="row"
+					jc="center"
+					width="70vw"
+					others="margin-top:2rem;margin-bottom:4rem"
+				>
 					<Button
 						width="14rem"
 						height="4rem"
 						bradius="30px"
 						_onClick={reserve}
+						others="margin-left:5rem;"
 					>
 						<Text color="white" bold="700" fontSize="1.8rem">
 							예약하기

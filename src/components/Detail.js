@@ -17,7 +17,7 @@ const Detail = (props) => {
 		const refCamp = camp_list.filter((camp) => camp.id === Number(post_id));
 		setCamps(refCamp[0]);
 		dispatch(campCreators.setMap(refCamp[0]?.address));
-	}, [camp_list]);
+	}, [camp_list, map_info]);
 
 	return (
 		<>

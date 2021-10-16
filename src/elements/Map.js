@@ -8,20 +8,22 @@ const Map = (props) => {
 		var container = document.getElementById('map');
 		var options = {
 			center: new kakao.maps.LatLng(lat, lng),
-			level: 3,
+			level: 4,
 		};
 		var map = new kakao.maps.Map(container, options);
-	}, []);
+	}, [props]);
 
 	return (
 		<div>
 			<div
 				id="map"
 				style={{
-					width: '20rem',
-					height: '20rem',
+					width: '22rem',
+					height: '22rem',
 					marginLeft: '5rem',
-					borderRadius: '30px',
+					borderRadius: '2rem',
+					marginBottom: '1.3rem',
+					boxShadow: '5px 7px 12px 0px rgba(0,0,0,0.78)',
 				}}
 			></div>
 		</div>
