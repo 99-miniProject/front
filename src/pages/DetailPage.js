@@ -36,7 +36,7 @@ const DetailPage = (props) => {
 					modal_status && dispatch(pageCreators.setModal(false));
 				}}
 			>
-				<Grid fd="column" width="70vw">
+				<Grid fd="column">
 					<Detail post_id={post_id} />
 				</Grid>
 				<hr style={{ marginTop: '2rem', width: '75vw' }} />

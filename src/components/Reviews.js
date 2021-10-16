@@ -35,7 +35,7 @@ const Reviews = (props) => {
 
 	return (
 		<>
-			<Grid fd="column" others="margin-bottom:1rem;" width="50rem">
+			<Grid fd="column" others="margin-bottom:1rem;" width="70rem">
 				<Grid>
 					<Grid
 						jc="center"
@@ -71,7 +71,7 @@ const Reviews = (props) => {
 					</Button>
 				</Grid>
 				<Grid
-					width="45vw"
+					width="65vw"
 					jc="left"
 					others="margin-bottom:2rem;"
 					fd="column"
@@ -85,7 +85,7 @@ const Reviews = (props) => {
 								key={idx}
 							>
 								<Grid jc="space-between" width="45vw">
-									<Grid width="20rem" jc="space-between">
+									<Grid width="40rem" jc="space-between">
 										<Text
 											fontSize="1.2rem"
 											bold="700"
@@ -93,10 +93,14 @@ const Reviews = (props) => {
 										>
 											{review?.user?.username}
 										</Text>
-										<Text center>{review?.content}</Text>
+										<Grid jc="center" width="30vw">
+											<Text center>
+												{review?.content}
+											</Text>
+										</Grid>
 									</Grid>
 									{getIdFromToken() ===
-										review?.user?.username && (
+									review?.user?.username ? (
 										<Grid>
 											<Button
 												width="3rem"
@@ -158,6 +162,14 @@ const Reviews = (props) => {
 													삭제
 												</Text>
 											</Button>
+										</Grid>
+									) : (
+										<Grid
+											width="7.5rem"
+											height="1.8rem"
+											bgColor="white"
+										>
+											{''}
 										</Grid>
 									)}
 								</Grid>

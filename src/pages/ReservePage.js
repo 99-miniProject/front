@@ -59,12 +59,12 @@ const ReservePage = (props) => {
 						{_camps?.name}
 					</Text>
 				</Grid>
-				<Grid>
+				<Grid others="@media only screen and (max-width: 900px) { flex-direction:column;}">
 					<Grid width="40vw" fd="column">
 						<Grid width="40vw" others="margin-top:2rem;">
 							<Image
 								others="-webkit-box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78); 
-							box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78);margin-bottom:2rem;margin-top:0.5rem;"
+							box-shadow: 5px 7px 12px 0px rgba(0,0,0,0.78);margin-bottom:2rem;margin-top:0.5rem;min-width:20rem;"
 								bradius="18px"
 								src={_camps?.img}
 								width="20rem"
@@ -75,7 +75,7 @@ const ReservePage = (props) => {
 							<Grid
 								width="100%"
 								jc="left"
-								others="margin-left:20rem;margin-bottom:2rem;"
+								others="margin-left:20rem;margin-bottom:2rem;@media only screen and (max-width: 900px) { margin-left:3rem;}"
 							>
 								<Text
 									fontSize="1.6rem"
@@ -92,7 +92,7 @@ const ReservePage = (props) => {
 							<Grid
 								width="100%"
 								jc="left"
-								others="margin-left:20rem"
+								others="margin-left:20rem;@media only screen and (max-width: 900px) { margin-left:3rem; margin-bottom:1.5rem;}"
 							>
 								<Text
 									fontSize="1.6rem"
@@ -131,7 +131,11 @@ const ReservePage = (props) => {
 									: _checkIn}
 							</Text>
 						</Grid>
-						<Grid jc="center" ai="center">
+						<Grid
+							jc="center"
+							ai="center"
+							others="@media only screen and (max-width: 900px) { width:30rem}"
+						>
 							<Text
 								bold="700"
 								fontSize="1.5rem"

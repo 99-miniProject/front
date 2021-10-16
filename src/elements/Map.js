@@ -20,7 +20,6 @@ const Map = (props) => {
 				style={{
 					width: '20rem',
 					height: '20rem',
-					marginLeft: '5rem',
 					borderRadius: '2rem',
 					marginBottom: '1.3rem',
 					boxShadow: '5px 7px 12px 0px rgba(0,0,0,0.78)',
