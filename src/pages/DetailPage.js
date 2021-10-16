@@ -14,11 +14,15 @@ const DetailPage = (props) => {
 	const post_id = props.match.params.id;
 	const modal_status = useSelector((state) => state.pages.modal);
 	const [update, setUpdate] = React.useState(false);
+	const place = useSelector((state) => state.camp.set_map);
+	console.log('aa', place);
 
+	// * get details
 	React.useEffect(() => {
 		dispatch(campCreators.getReviews(post_id));
 		dispatch(campCreators.getPost());
-	}, []);
+		dispatch(campCreators.getMap(place));
+	}, [place]);
 
 	// * get Modal state
 	React.useEffect(() => {
@@ -33,7 +37,7 @@ const DetailPage = (props) => {
 					modal_status && dispatch(pageCreators.setModal(false));
 				}}
 			>
-				<Grid fd="column" width="100vw">
+				<Grid fd="column" width="60rem">
 					<Detail post_id={post_id} />
 				</Grid>
 				<hr style={{ marginTop: '2rem', width: '75vw' }} />

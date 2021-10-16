@@ -21,14 +21,16 @@ const ReservePage = (props) => {
 		setCamps(refCamp[0]);
 	}, [camp_list]);
 
-	// const refCapacity = refCamp[0].capacity;
-
 	const [reserveCtn, setReserveCtn] = React.useState(0);
 	const [_checkIn, setCheckIn] = React.useState('');
 
 	const toDate = new Date(_checkIn);
 
 	const reserve = () => {
+		if (_checkIn === '' || reserveCtn === 0) {
+			window.alert('인원수와 날짜를 모두 설정해주세요.');
+			return;
+		}
 		const review_info = {
 			camp_id: post_id,
 			count: reserveCtn,
@@ -39,7 +41,7 @@ const ReservePage = (props) => {
 
 	const selects = () => {
 		let array = [];
-		for (let i = 1; i < _camps?.capacity + 1; i++) {
+		for (let i = 0; i < _camps?.capacity + 1; i++) {
 			array.push(<option key={i}>{i}</option>);
 		}
 		return array;

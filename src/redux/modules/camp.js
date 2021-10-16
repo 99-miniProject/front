@@ -7,6 +7,8 @@ import axios from 'axios';
 const initialState = {
 	list: [],
 	reviews: [],
+	maps: [],
+	set_map: [],
 };
 
 // ! action types
@@ -16,6 +18,8 @@ const DELETE_REVIEW = 'DELETE_REVIEW';
 const CREATE_REVIEW = 'CREATE_REVIEW';
 const UPDATE_REVIEW = 'UPDATE_REVIEW';
 const SET_FILTER = 'SET_FILTER';
+const GET_MAP = 'GET_MAP';
+const SET_MAP = 'SET_MAP';
 
 // ! action creators
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
@@ -28,6 +32,8 @@ const createReviewRD = createAction(CREATE_REVIEW, (review_info) => ({
 }));
 const deleteReviewRD = createAction(DELETE_REVIEW, (id) => ({ id }));
 const setFilter = createAction(SET_FILTER, (value) => ({ value }));
+const getMapRD = createAction(GET_MAP, (info) => ({ info }));
+const setMap = createAction(SET_MAP, (map) => ({ map }));
 
 // ! middlewares
 const getPost = () => {
@@ -37,6 +43,33 @@ const getPost = () => {
 			.then((res) => {
 				dispatch(setPost(res.data));
 			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+};
+
+const getMap = (location) => {
+	return function (dispatch, getState, { history }) {
+		axios
+			.get(
+				`https://dapi.kakao.com/v2/local/search/address.json?query=${location}`,
+				{
+					headers: {
+						Authorization:
+							'KakaoAK 6d6976912ea54490d13f1e685e5ba6fe',
+					},
+				}
+			)
+			.then((res) => {
+				console.log('>>a', res.data.documents[0].road_address.x);
+				const info = {
+					lng: res.data.documents[0].road_address.x,
+					lat: res.data.documents[0].road_address.y,
+				};
+				dispatch(getMapRD(info));
+			})
+
 			.catch((err) => {
 				console.log(err);
 			});
@@ -110,6 +143,7 @@ const updateReview = (review_info) => {
 
 const postReserve = (reserve_info) => {
 	return function (disptach, getState, { history }) {
+		console.log(reserve_info);
 		instance
 			.post('/books', {
 				campId: reserve_info.camp_id,
@@ -164,6 +198,16 @@ export default handleActions(
 				console.log('>>', action.payload.id);
 				if (index !== -1) draft.reviews.splice(index, 1);
 			}),
+		[GET_MAP]: (state, action) =>
+			produce(state, (draft) => {
+				draft['maps'] = action.payload.info;
+				console.log('>>', action.payload.info);
+			}),
+		[SET_MAP]: (state, action) =>
+			produce(state, (draft) => {
+				draft['set_map'] = action.payload.map;
+				console.log('<<<<<', action.payload.map);
+			}),
 	},
 	initialState
 );
@@ -176,6 +220,8 @@ const actionCreators = {
 	setFilter,
 	deleteReview,
 	updateReview,
+	getMap,
+	setMap,
 };
 
 export { actionCreators };

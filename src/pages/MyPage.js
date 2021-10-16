@@ -5,6 +5,17 @@ import { actionCreators as campCreators } from '../redux/modules/camp';
 import axios from 'axios';
 import { getCookie, getIdFromToken } from '../shared/Cookie';
 const MyPage = () => {
+	axios
+		.get('http://jhhong0930.shop/mypage', {
+			headers: { 'X-AUTH-TOKEN': getCookie('token') },
+		})
+		.then((res) => {
+			console.log(res);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+
 	const dispatch = useDispatch();
 	const review_list = useSelector((state) => state.camp.reviews);
 	console.log(review_list);
