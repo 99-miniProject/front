@@ -18,8 +18,8 @@ const Map = (props) => {
 			<div
 				id="map"
 				style={{
-					width: '22rem',
-					height: '22rem',
+					width: '20rem',
+					height: '20rem',
 					marginLeft: '5rem',
 					borderRadius: '2rem',
 					marginBottom: '1.3rem',

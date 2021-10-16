@@ -15,7 +15,6 @@ const DetailPage = (props) => {
 	const modal_status = useSelector((state) => state.pages.modal);
 	const [update, setUpdate] = React.useState(false);
 	const place = useSelector((state) => state.camp.set_map);
-	console.log('aa', place);
 
 	// * get details
 	React.useEffect(() => {
@@ -37,7 +36,7 @@ const DetailPage = (props) => {
 					modal_status && dispatch(pageCreators.setModal(false));
 				}}
 			>
-				<Grid fd="column" width="60rem">
+				<Grid fd="column" width="70vw">
 					<Detail post_id={post_id} />
 				</Grid>
 				<hr style={{ marginTop: '2rem', width: '75vw' }} />
